@@ -2,12 +2,23 @@ const request = require("request");
 const geocode = require("./utils/geocode")
 const forecast = require("./utils/forecast");
 
-geocode("Hanoi", (error, data) => {
-	console.log("Error", error);
-	console.log(data);
-})
+const address = process.argv[2];
 
-forecast(21.0245, 105.8411, (error, data) => {
-	console.log(error);
-	console.log(data);
-})
+if (!address) {
+	console.log("Please provice an address");
+} else {
+	geocode(address, (error, {latitude, longitude, location}) => {
+		if (error) {
+			return console.log(error);
+		}
+	
+		forecast(latitude, longitude, (error, forecaseData) => {
+			if (error) {
+				return console.log(error);
+			}
+	
+			console.log(location);
+			console.log(forecaseData);
+		})
+	})
+}
