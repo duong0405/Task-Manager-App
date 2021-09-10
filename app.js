@@ -1,15 +1,13 @@
 const request = require("request");
+const geocode = require("./utils/geocode")
+const forecast = require("./utils/forecast");
 
-const url = "http://api.weatherstack.com/current?access_key=660eb56fec89286baa97ba530fd86f3d&query=Hanoi";
+geocode("Hanoi", (error, data) => {
+	console.log("Error", error);
+	console.log(data);
+})
 
-request({ url: url, json: true }, (error, response) => {
-	if (error) {
-		console.log("Unable to connect to weather service!");
-	} else if (response.body.error) {
-		console.log("Unable to find location.");
-	} else {
-		const data = response.body.current;
-		console.log("temperature: " + data.temperature);
-		console.log("feelslike: " + data.feelslike);
-	}
-});
+forecast(21.0245, 105.8411, (error, data) => {
+	console.log(error);
+	console.log(data);
+})
