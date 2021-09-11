@@ -1,24 +1,48 @@
-const request = require("request");
-const geocode = require("./utils/geocode")
-const forecast = require("./utils/forecast");
+const express = require("express");
+const path = require("path");
+const ejs = require("ejs");
 
-const address = process.argv[2];
+const app = express();
+app.use(express.static("public"));
+app.set("view engine", "ejs");
 
-if (!address) {
-	console.log("Please provice an address");
-} else {
-	geocode(address, (error, {latitude, longitude, location}) => {
-		if (error) {
-			return console.log(error);
-		}
-	
-		forecast(latitude, longitude, (error, forecaseData) => {
-			if (error) {
-				return console.log(error);
-			}
-	
-			console.log(location);
-			console.log(forecaseData);
-		})
-	})
-}
+app.get("/", (req, res) => {
+    res.render("index", {
+        title: "Weather",
+        name: "Phuong Duong"
+    }); 
+})
+
+app.get("/about", (req, res) => {
+    res.render("about", {
+        title: "About",
+        name: "Phuong Duong"
+    });
+})
+
+app.get("/help", (req, res) => {
+    res.render("help", {
+        title: "Help",
+        name: "Phuong Duong"
+    });
+})
+
+app.get("/help/*", (req, res) => {
+    res.render("404", {
+        title: "404",
+        name: "Phuong Duong",
+        error: "Help article not found."
+    });
+})
+
+app.get("/*", (req, res) => {
+    res.render("404", {
+        title: "404",
+        name: "Phuong Duong",
+        error: "Page not found"
+    });
+})
+
+app.listen(3000, () => {
+    console.log("Server is runining on port 3000");
+})

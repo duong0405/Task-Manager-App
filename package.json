@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/duong0405/try-NodeJS#readme",
   "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
     "request": "^2.88.2"
   }
 }
