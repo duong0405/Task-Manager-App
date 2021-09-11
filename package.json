@@ -1,0 +1,23 @@
+{
+  "name": "try-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/duong0405/try-NodeJS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/duong0405/try-NodeJS/issues"
+  },
+  "homepage": "https://github.com/duong0405/try-NodeJS#readme",
+  "dependencies": {
+    "request": "^2.88.2"
+  }
+}
