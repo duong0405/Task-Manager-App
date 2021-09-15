@@ -12,7 +12,7 @@ const forecast = (latitude, longitude, callback) => {
         }
         else {
             const data = body.current;
-            callback(undefined, data.weather_descriptions + ". It is current " + data.temperature + " degree, but feels like " + data.feelslike + " degree");
+            callback(undefined, data.weather_descriptions + ". It is currently " + data.temperature + " degree, but feels like " + data.feelslike + " degree");
         }
     })
 }
