@@ -131,3 +131,6 @@ dist
 
 # file upload
 avatars
+
+#dev env
+config
