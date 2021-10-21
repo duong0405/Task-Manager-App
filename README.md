@@ -6,6 +6,13 @@ It is a simple backend project for making REST API with NodeJS.
 Task manager complete with user accounts and authentication.
 Using Postman to simulate the request.
 
+## Feature
+
+-   Sending Emails
+-   Authentication and Security
+-   Filtering, Pagination and Sorting
+-   Avatar upload
+
 ## Structure
 
 ```
