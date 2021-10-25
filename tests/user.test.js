@@ -22,18 +22,36 @@ beforeEach(async () => {
 })
 
 test('Signup a new user', async () => {
-    await request(app).post('/users').send({
+    const response = await request(app).post('/users').send({
         name: 'Angela',
         email: 'angela@example.com',
         password: 'MyPassw777!'
     }).expect(201)
+
+    // Assert that the db was changed correctly
+    const user = await User.findById(response.body.user._id)
+    expect(user).not.toBeNull()
+
+    // Assertions about the response
+    expect(response.body).toMatchObject({
+        user: {
+            name: 'Angela',
+            email: 'angela@example.com'
+        },
+        token: user.tokens[0].token
+    })
+
+    expect(user.password).not.toBe('MyPassw777!')
 })
 
 test('Login existing user', async () => {
-    await request(app).post('/users/login').send({
+    const response = await request(app).post('/users/login').send({
         email: userOne.email,
         password: userOne.password
     }).expect(200)
+
+    const user = await User.findById(userOneID)
+    expect(response.body.token).toBe(user.tokens[1].token)
 })
 
 test('Login failure', async () => {
@@ -64,6 +82,9 @@ test('Delete user profile', async () => {
         .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
         .send()
         .expect(200)
+
+    const user = await User.findById(userOneID)
+    expect(user).toBeNull()
 })
 
 test('Delete user profile for unauthenticated user', async () => {
