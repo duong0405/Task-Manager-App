@@ -2,7 +2,6 @@ const request = require('supertest')
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const User = require('../src/models/user')
-
 const app = require('../src/app')
 
 const userOneID = new mongoose.Types.ObjectId()
@@ -92,4 +91,38 @@ test('Delete user profile for unauthenticated user', async () => {
         .delete('/users/me')
         .send()
         .expect(401)
+})
+
+test('Update avatar', async () => {
+    await request(app)
+        .post('/users/me/avatar')
+        .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+        .attach('avatar', 'tests/fixtures/profile-pic.jpg')
+        .expect(200)
+
+    const user = await User.findById(userOneID)
+    expect(user.avatar).toEqual(expect.any(Buffer))
+})
+
+test('Update user', async () => {
+    await request(app)
+        .patch('/users/me')
+        .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+        .send({
+            name: 'Mike Young'
+        })
+        .expect(200)
+
+    const user = await User.findById(userOneID)
+    expect(user.name).toBe('Mike Young')
+})
+
+test('Update user with invalid field', async () => {
+    const response = await request(app)
+        .patch('/users/me')
+        .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+        .send({
+            location: 'NewYork city'
+        })
+        .expect(400)
 })
