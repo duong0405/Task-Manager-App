@@ -12,25 +12,34 @@ Using Postman to simulate the request.
 -   Authentication and Security
 -   Filtering, Pagination and Sorting
 -   Avatar upload
+-   Testing
 
 ## Structure
 
 ```
 .
-└── src
-    ├── index.js
-    ├── routers
-    │   ├── task.js
-    │   └── user.js
-    ├── models
-    │   ├── task.js
-    │   └── user.js
-    ├── middleware
-    │   └── auth.js
-    ├── email
-    │   └── account.js
-    └── db
-        └── mongoose.js
+.
+├── src
+│   ├── app.js
+│   ├── index.js
+│   ├── routers
+│   │   ├── task.js
+│   │   └── user.js
+│   ├── models
+│   │   ├── task.js
+│   │   └── user.js
+│   ├── middleware
+│   │   └── auth.js
+│   ├── email
+│   │   └── account.js
+│   └── db
+│       └── mongoose.js
+└── tests
+    ├── __mocks__
+    ├── fixtures
+    ├── task.test.js
+    └── user.test.js
+
 ```
 
 ## API
